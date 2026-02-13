@@ -1,0 +1,34 @@
+Todos los comandos utilizados en cada una de las practicas:
+
+Comandos usados practica 1
+la practica 1 no tiene comandos porque se trata de la preparación del entorno físico/virtual y la instalación inicial, la cual se hace a través de menús visuales de VirtualBox y el instalador gráfico de CentOS Stream.
+
+
+Comandos usados practica 2
+nmcli
+con
+mod
+up
+sudo
+
+Comandos usados practica 3
+sudo
+useradd
+-g
+usermod
+-aG
+whell
+groupadd
+userdel
+-r
+groupdel
+
+Comandos usados practica 4
+mkdir
+touch
+nano
+chmod
+cp
+rm
+-rf
+-r

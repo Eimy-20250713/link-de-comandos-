@@ -1,0 +1,50 @@
+Todos los comandos utilizados en cada una de las practicas del laboratorio 2:
+
+Comandos usados practica 1
+
+sudo dnf update -y
+sudo dnf upgrade -y
+dnf repolist
+dnf repolist all
+dnf search bashtop
+sudo dnf install epel-release -y
+sudo dnf makecache
+dnf search btop
+sudo dnf install btop -y
+btop
+sudo dnf remove btop -y
+rm -rf ~/.config/btop
+sudo dnf autoremove
+
+Comandos usados practica 2
+
+Sudo crontab -e
+0 23 * * * sudo dnf upgrade -y
+0 3 * * 0 sudo reboot
+sudo crontab -l
+sudo dnf install at -y
+sudo systemctl enable --now atd
+systemctl status atd
+ls /tmp
+echo "rm -rf /tmp/*" | at now + 1 minute
+sudo systemctl start atd
+sudo systemctl enable atd
+echo "sudo rm -rf /tmp/*" | at now + 1 minute
+
+
+Comandos usados practica 3
+
+lsblk
+sudo fdisk /dev/sdb
+sudo mkfs.ext4 /dev/sdb1
+cd ~/Escritorio
+mkdir disco20gb
+sudo mount /dev/sdb1 ~/Escritorio/disco20gb
+cd ~/Escritorio/disco20gb
+sudo touch AdrianAlcantara.txt
+ls
+cd ~
+sudo umount ~/Desktop/disco20gb
+sudo mount /dev/sdb1 /mnt
+cd /mnt
+ls

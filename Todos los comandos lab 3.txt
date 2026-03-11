@@ -1,0 +1,69 @@
+Todos los comandos utilizados en cada una de las practicas del laboratorio 3:
+
+Comandos usados practica 1
+
+Configurar GRUB
+sudo nano /etc/default/grub
+sudo grub2-mkconfig -o /boot/grub2/grub.cfg
+cat /etc/default/grub | grep GRUB_TIMEOUT
+
+Recuperar contraseña root
+sudo reboot
+mount -o remount,rw /sysroot
+chroot /sysroot
+passwd root
+touch /.autorelabel
+
+Comandos usados practica 2
+
+cd ~/Escritorio
+
+Script 1
+nano backup.sh
+
+dentro de nano:
+#!/bin/bash
+fecha=$(date +"%d-%m-%Y:%H:%M")
+tar -czvf backup-$fecha.tar.gz /home/$USER
+
+chmod +x backup.sh
+./backup.sh
+
+Script 2
+nano red.sh
+
+dentro de nano:
+#!/bin/bash
+echo "Ingrese el nombre del archivo:"
+read nombre
+ifconfig > ~/Escritorio/$nombre.txt
+
+chmod +x red.sh
+./red.sh
+
+Comandos usados practica 3
+
+primera parte:
+centos:
+sudo nmcli networking on 
+sudo nmcli con up enp0s3
+sudo systemctl restart NetworkManager 
+ip a
+sudo systemctl stop firewalld
+
+windows:
+ipconfig
+ping 192.168.60.191
+
+segunda parte:
+centos
+sudo dnf install openssh-server -y 
+sudo systemctl start sshd
+sudo systemctl enable sshd
+sudo systemctl status sshd
+
+
+windows
+ssh centos_20250713@192.168.60.191
+ssh-keygen
+ssh-copy-id centos_20250713@192.168.60.191

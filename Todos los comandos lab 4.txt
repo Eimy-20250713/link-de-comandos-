@@ -1,0 +1,75 @@
+Todos los comandos utilizados en cada una de las practicas del laboratorio 4:
+
+Comandos usados practica 1
+
+sudo dnf install httpd -y
+sudo systemctl start httpd
+sudo systemctl enable httpd
+sudo systemctl status httpd
+sudo mkdir -p /var/www/hola
+sudo nano /var/www/hola/index.html
+sudo nano /etc/httpd/conf.d/hola.conf
+sudo systemctl restart httpd
+sudo mkdir -p /var/www/estudiante
+sudo nano /var/www/estudiante/index.html
+sudo nano /etc/httpd/conf.d/estudiante.conf
+sudo apachectl configtest
+sudo ss -tlnp | grep httpd
+curl localhost
+curl localhost:8080
+Prueba final en el navegador
+Primer sitio (Hola Mundo):
+http://localhost
+Segundo sitio (tu información):
+http://localhost:8080
+
+Comandos usados practica 2
+
+sudo dnf update -y
+sudo dnf install postfix -y
+sudo systemctl start postfix
+sudo systemctl enable postfix
+sudo systemctl status postfix
+sudo nano /etc/postfix/main.cf
+sudo dnf install s-nail -y
+sudo dnf install cyrus-sasl cyrus-sasl-plain s-nail -y
+sudo nano /etc/postfix/sasl_passwd
+sudo chmod 600 /etc/postfix/sasl_passwd
+sudo postmap /etc/postfix/sasl_passwd
+sudo systemctl restart postfix
+echo "Nombre: TU NOMBRE
+Matricula: TU MATRICULA" | mail -s "MambruSeFueALaGuerra" correo electronico
+mailq
+sudo tail -20 /var/log/maillog
+sudo tail -30 /var/log/maillog
+ping google.com
+
+Comandos usados practica 3
+
+sudo dnf update -y
+sudo dnf install cups -y
+sudo systemctl enable cups
+sudo systemctl start cups
+sudo systemctl status cups
+sudo dnf install cups-pdf -y
+sudo systemctl restart cups
+sudo nano /etc/cups/cupsd.conf
+sudo firewall-cmd --permanent --add-service=ipp
+sudo firewall-cmd --reload
+ip a
+rpm -q cups
+ls /etc/cups
+cat /etc/cups/cupsd.conf
+less /etc/cups/cupsd.conf
+sudo cp /etc/cups/cupsd.conf.default /etc/cups/cupsd.conf
+sudo systemctl restart cups
+lpstat -p
+lpstat -o
+lpstat -t
+sudo find / -name "*.pdf"
+ls /var/spool/cups-pdf
+ls ~/PDF
+ls /home/*/PDF
+sudo cupsenable CUPS-PDF
+sudo cupsaccept CUPS-PDF
+cancel -a

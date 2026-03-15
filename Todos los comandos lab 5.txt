@@ -1,0 +1,79 @@
+Todos los comandos utilizados en cada una de las practicas del laboratorio 5:
+
+Comandos usados practica 1: Syncronizacion de carpetas con Rsync
+
+mkdir carpeta_sync
+cd carpeta_sync
+touch archivo{1..100}.txt
+ls
+ls -v
+ls | wc -l
+sudo dnf install rsync -y
+rsync -avz carpeta_sync/ centos_20250713@IP_DEL_SERVER2:/home/centos_20250713/carpeta_sync
+nano /home/centos_20250713/sync.sh
+chmod +x /home/centos_20250713/sync.sh
+crontab -e
+crontab -l
+* * * * * /home/usuario/sync.sh
+touch carpeta_sync/prueba.txt
+ls carpeta_sync
+ip a
+pwd
+nano sync.sh
+rsync -avz /home/usuario/carpeta_sync/ usuario@IP_SERVER2:/home/usuario/carpeta_sync
+chmod +x sync.sh
+touch carpeta_sync/prueba.txt
+
+Comandos usados Practica 2: Instalacion y configuracion del Cluster
+
+sudo dnf update -y
+sudo dnf install pacemaker corosync pcs -y
+sudo systemctl enable pcsd --now
+sudo dnf install dnf-plugins-core -y
+sudo dnf config-manager --set-enabled highavailability
+sudo dnf clean all
+sudo dnf install pacemaker corosync pcs -y
+sudo systemctl enable pcsd --now
+systemctl status pcsd
+sudo passwd hacluster
+sudo pcs host auth 192.168.60.191 192.168.60.134 -u hacluster -p (contraseña)
+sudo pcs cluster setup clusterHA 192.168.60.191 192.168.60.134
+sudo pcs cluster start --all
+sudo pcs cluster enable --all
+sudo pcs status
+sudo pcs resource create IPflotante ocf:heartbeat:IPaddr2 ip=192.168.60.200 cidr_netmask=24 op monitor interval=30s
+ip a
+sudo pcs status resources
+sudo pcs property set stonith-enabled=false
+ping 192.168.60.200
+reboot
+
+Comandos usados practica 3: Cluster de Alta Disponibilidad HTTP
+
+sudo dnf update -y
+sudo dnf install httpd -y
+sudo systemctl enable httpd --now
+sudo systemctl status httpd
+sudo nano /var/www/html/index.html
+probar apache
+http://192.168.60.191
+http://192.168.60.134
+sudo dnf install keepalived -y
+sudo nano /etc/keepalived/keepalived.conf
+sudo systemctl enable keepalived --now
+sudo systemctl status keepalived
+ip a
+
+
+
+
+
+
+
+
+
+
+
+
+
+

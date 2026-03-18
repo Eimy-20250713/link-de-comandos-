@@ -1,0 +1,153 @@
+Todos los comandos utilizados en cada una de las practicas del laboratorio 6:
+
+Comandos usados Practica 1 - Cifrado
+
+sudo dnf install gnupg2 -y
+gpg --version
+mkdir practica_cifrado
+cd practica_cifrado
+nano mensaje.txt
+cat mensaje.txt
+gpg -c mensaje.txt
+cat mensaje.txt.gpg
+nano mensaje.txt.gpg
+gpg mensaje.txt.gpg
+
+Comandos usados Practica 2 - IP tables - UFW/Firewall-cmd 
+
+sudo dnf install httpd -y
+sudo systemctl enable httpd --now
+
+sudo dnf install vsftpd -y
+sudo systemctl enable vsftpd --now
+
+sudo systemctl status sshd
+
+ss -tulnp
+
+sudo dnf install iptables-services -y
+sudo systemctl enable iptables --now
+
+sudo iptables -A INPUT -p tcp --dport 80 -j DROP
+sudo iptables -A INPUT -p tcp --dport 21 -j DROP
+sudo iptables -A INPUT -p tcp --dport 22 -j DROP
+
+sudo iptables -L
+
+sudo iptables -D INPUT -p tcp --dport 80 -j DROP
+sudo iptables -D INPUT -p tcp --dport 21 -j DROP
+sudo iptables -D INPUT -p tcp --dport 22 -j DROP
+
+sudo systemctl enable firewalld --now
+sudo firewall-cmd --remove-service=http
+sudo firewall-cmd --remove-service=ftp
+sudo firewall-cmd --remove-service=ssh
+sudo firewall-cmd --reload
+sudo firewall-cmd --list-all
+
+sudo firewall-cmd --add-service=http
+sudo firewall-cmd --add-service=ftp
+sudo firewall-cmd --add-service=ssh
+sudo firewall-cmd --reload
+sudo firewall-cmd --list-all
+
+Comandos usados Practica 3 -Instalacion de IDS snort
+
+sudo dnf update -y
+sudo dnf install epel-release -y
+sudo dnf install gcc make libpcap-devel pcre-devel libdnet-devel zlib-devel tcpdump wget -y
+sudo dnf config-manager --set-enabled crb
+sudo dnf clean all
+sudo dnf makecache
+dnf search libpcap
+sudo dnf groupinstall "Development Tools" -y
+sudo dnf install pcre pcre-devel -y
+sudo dnf install libdnet libdnet-devel -y
+sudo dnf install dnet-devel -y
+
+cd /usr/src
+pwd
+ls
+cd snort-2.9.20
+cd snort-2.9.20-1
+
+sudo wget https://www.snort.org/downloads/snort/snort-2.9.20-1.tar.gz
+sudo tar -xvzf snort-2.9.20-1.tar.gz
+
+sudo wget https://www.snort.org/downloads/snort/daq-2.0.7.tar.gz
+sudo tar -xvzf daq-2.0.7.tar.gz
+
+cd daq-2.0.7
+sudo ./configure
+sudo make
+sudo make install
+sudo ldconfig
+
+echo "/usr/local/lib" | sudo tee /etc/ld.so.conf.d/local.conf
+export LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH
+export CPPFLAGS="-I/usr/local/include"
+export LDFLAGS="-L/usr/local/lib"
+
+cd /usr/src/snort-2.9.20
+sudo ./configure
+./configure --with-daq-includes=/usr/local/include --with-daq-libraries=/usr/local/lib
+sudo make
+sudo make install
+
+snort -V
+
+sudo mkdir -p /etc/snort/rules
+sudo mkdir /var/log/snort
+
+sudo nano /etc/snort/snort.conf
+sudo nano /etc/snort/rules/local.rules
+
+ip a
+
+sudo snort -i enp0s3 -A console -c /etc/snort/snort.conf
+sudo snort -i enp0s3 -A console -q -c /etc/snort/snort.conf
+
+ping 192.168.60.191
+ftp 192.168.60.191
+ssh usuario@192.168.60.191
+http://192.168.60.191
+
+
+Comandos usados practica 4
+
+ip a
+
+sudo dnf install epel-release -y
+sudo dnf update -y
+sudo dnf install google-authenticator-libpam qrencode -y
+
+google-authenticator
+
+ls -a ~
+
+sudo nano /etc/pam.d/sshd
+
+sudo nano /etc/ssh/sshd_config
+
+sudo systemctl restart sshd
+
+ssh usuario@IP
+
+ssh -v usuario@IP
+
+whoami
+
+cat /etc/passwd
+
+sudo passwd usuario
+
+su - usuario
+
+rm -f ~/.google_authenticator
+
+dnf search google-authenticator
+
+sudo dnf config-manager --set-enabled crb
+
+sudo systemctl stop firewalld
+

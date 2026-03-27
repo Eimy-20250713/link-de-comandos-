@@ -1,0 +1,58 @@
+Todos los comandos utilizados en cada una de las practicas del laboratorio 7:
+
+Comandos usados Practica 1: compartir archivos entre linux utilizando NFS
+
+sudo dnf install nfs-utils -y
+sudo systemctl enable --now nfs-server
+sudo mkdir -p /OS3
+cd /OS3
+for i in {1..100}; do sudo touch Onel$i.txt; done
+sudo chmod -R 755 /OS3
+sudo chown -R nobody:nobody /OS3
+sudo nano /etc/exports
+sudo exportfs -rav
+sudo firewall-cmd --permanent --add-service=nfs
+sudo firewall-cmd --reload
+
+sudo mkdir -p /mnt/nfs
+sudo mount 192.168.60.191:/OS3 /mnt/nfs
+sudo nano /etc/fstab
+sudo umount /mnt/nfs
+sudo mount -a
+ls /mnt/nfs
+sudo reboot
+
+ip a
+ping 192.168.60.191
+
+Comandos usados Practica 2: Creacion de fileserver compatible con Windows utilizando SAMBA 
+
+sudo dnf install samba samba-client samba-common -y
+sudo systemctl enable smb --now
+sudo systemctl status smb
+sudo mkdir -p /srv/samba/compartida
+sudo groupadd smbgrupo
+sudo useradd onel
+sudo passwd onel
+sudo smbpasswd -a onel
+sudo chown -R onel:smbgrupo /srv/samba/compartida
+sudo chmod -R 770 /srv/samba/compartida
+sudo nano /etc/samba/smb.conf
+sudo systemctl restart smb
+cd /srv/samba/compartida
+for i in {1..100}; do touch onel$i; done
+ls
+sudo firewall-cmd --permanent --add-service=samba
+sudo firewall-cmd --reload
+cat /srv/samba/compartida/onel99.txt
+sudo setenforce 0
+
+
+
+Comandos usados Practica 3: Creacion de controlador de Dominio con cliente Windows
+
+La práctica 3 no se puede realizar en CentOS Stream porque este sistema no incluye soporte completo para Samba como controlador de dominio (Active Directory). Carece del servicio samba-ad-dc y del paquete samba-dc, necesarios para crear y gestionar un dominio, lo que impide ejecutar correctamente la funcionalidad requerida.
+
+
+
+

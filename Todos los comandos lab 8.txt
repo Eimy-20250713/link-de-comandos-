@@ -1,0 +1,56 @@
+Todos los comandos utilizados en cada una de las practicas del laboratorio 8:
+
+Comandos usados Practica 1: Instalacion y configuracion de Docker 
+
+sudo dnf update -y
+sudo dnf install -y yum-utils
+sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+sudo dnf install -y docker-ce docker-ce-cli containerd.io
+sudo systemctl start docker
+sudo systemctl enable docker
+sudo systemctl status docker
+sudo docker pull nginx
+mkdir -p /home/website
+sudo docker run -d -p 8888:80 -v /home/website:/usr/share/nginx/html --name mi_nginx nginx
+nano /home/website/index.html
+sudo docker ps
+http://127.0.0.1:8888
+
+
+Comandos usados Practica 2: Instalacion de Portainer
+
+sudo docker pull portainer/portainer-ce:latest
+sudo docker volume create portainer_data
+sudo docker run -d -p 9443:9443 -p 8000:8000 --name portainer --restart=always -v /var/run/docker.sock:/var/run/docker.sock -v portainer_data:/data portainer/portainer-ce:latest
+sudo docker ps
+https://127.0.0.1:9443
+
+ip a
+sudo docker ps -a
+sudo docker stop portainer
+sudo docker rm portainer
+sudo docker restart portainer
+
+
+Comandos usados Practica 3: IDespliegue de contenedor de Wordpress utilizando Docker-Compose
+
+docker --version
+sudo dnf install docker-compose-plugin -y
+docker compose version
+mkdir wordpress-compose
+cd wordpress-compose
+sudo nano docker-compose.yml
+sudo docker compose up -d
+sudo docker ps
+http://192.168.60.191:8080
+sudo docker compose logs
+sudo systemctl status docker
+ls
+mv docker-compuse.yml docker-compose.yml
+sudo curl -L https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m) -o /usr/local/bin/docker-compose
+
+
+
+
+
+
